@@ -4,10 +4,12 @@ var myMainHeader = document.getElementById('mainHeader');
 var myStartButton = document.getElementById('startButton')
 var myJumbledPanel = document.querySelectorAll('.panel1');
 var myGuessPreview = document.querySelectorAll('#guessPreview');
-var wordLibrary = [""];
-var guesses = [];
+var mySubmitButton = document.getElementById('submitButton')
+var wordLibrary = ["WordJumble"];
 
 var wordInLetters = ["W","O","R","D","J","U","M","B","L","E"];
+var guesses = [];
+
 
 myStartButton.addEventListener('click',function(e){
   myStartButton.innerHTML = "Game Started!";
@@ -19,16 +21,20 @@ myStartButton.addEventListener('click',function(e){
 
 for (var i = 0; i < myJumbledPanel.length; i++) {
 myJumbledPanel[i].addEventListener('click',function(e){
-  // guesses.push(e.target.innerHTML);
-  // for (var i = 0; i < e.target.length; i++) {
-  // document.body.chilren[1].innerHTML = guesses;
-  var para = document.createElement("P");                       // Create a <p> element
-  t = [];
-  t = document.createTextNode(e.target.innerHTML);      // Create a text node
-  para.appendChild(t);                                          // Append the text to <p>
+  if (guesses.length >= wordInLetters.length) {
+    alert("Maximum Letters")
+  }else{
+  var para = document.createElement("row");
+  t = document.createTextNode(e.target.innerText);
+  para.appendChild(t);
+  guesses.push(t);
   document.getElementById("guessPreview").appendChild(para);
+}
 });
 }
+
+
+
 
 
 
