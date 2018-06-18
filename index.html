@@ -5,11 +5,77 @@
   <meta charset="utf-8">
   <title>Mani's test page</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>
-  
-  <script type="text/javascript" src="js/index.js" async>
+  <div class="wrapper">
+    <div class="container-flex">
+
+      <div id="mainHeader" class="jumbotron text-center">
+        <h1>Word Jumble</h1>
+        <button id="startButton" class="btn-info" type="button" name="button">Click to start</button>
+      </div>
+
+      <div id="jumbledPanel" class="container-fluid panel text-center">
+        <h2>Jumbled panel</h2>
+
+        <div class="row">
+
+          <div class="col-xl-1 col-sm-1 col-xs-1">
+
+          </div>
+
+          <div id="panel1" class="col-xl-1 col-sm-1 col-xs-1 panel panel1 border rounded">
+          </div>
+
+          <div id="panel2" class="col-xl-1 col-sm-1 col-xs-1 panel panel1 border rounded">
+          </div>
+
+          <div id="panel3" class="col-xl-1 col-sm-1 col-xs-1 panel panel1 border rounded">
+          </div>
+
+          <div id="panel4" class="col-xl-1 col-sm-1 col-xs-1  panel panel1 border rounded">
+          </div>
+
+          <div id="panel5" class="col-xl-1 col-sm-1 col-xs-1 panel panel1 border rounded">
+          </div>
+
+          <div id="panel6" class="col-xl-1 col-sm-1 col-xs-1 panel panel1 border rounded">
+          </div>
+
+          <div id="panel7" class="col-xl-1 col-sm-1 col-xs-1 panel panel1 border rounded">
+          </div>
+
+          <div id="panel8" class="col-xl-1 col-sm-1 col-xs-1 panel panel1 border rounded">
+          </div>
+
+          <div id="panel9" class="col-xl-1 col-sm-1 col-xs-1 panel panel1 border rounded">
+          </div>
+
+          <div id="panel10" class="col-xl-1 col-sm-1 col-xs-1 panel panel1 border rounded">
+          </div>
+
+          <div class="col-xl-1 col-sm-1 col-xs-1">
+          </div>
+
+        </div>
+      </div>
+      <br>
+
+      <div id="guessPanel" class="container-fluid panel text-center">
+        <h2>Guess Panel</h2>
+        <div id="guessPreview" class="panel">
+
+        </div>
+        <button class="btn-default text-center btn-info" type="button" name="button">Submit</button>
+      </div>
+
+
+
+    </div>
+  </div>
+  <script type="text/javascript" src="js/index2.js" async>
   </script>
 </body>
 
