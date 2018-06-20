@@ -6,6 +6,7 @@ h1 {
   font-size: 6em;
   font-family: "Indie Flower";
   text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+  color: #e9efdc;
 }
 
 button {
@@ -27,7 +28,7 @@ button {
 
 .panel2 {
   font-size: 6em;
-  font-family: "Indie Flower";
-  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
-  color: #e9efdc;
+  font-family: "Raleway";
+
+  color: black;
 }

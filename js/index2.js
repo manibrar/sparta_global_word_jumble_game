@@ -7,7 +7,7 @@ var myJumbledPanel = document.querySelectorAll('.panel1');
 var myGuessPreview = document.getElementById('guessPreview');
 var mySubmitButton = document.getElementById('submitButton')
 var myUndoButton = document.getElementById('undoButton')
-var wordLibrary = ["spartan","javascript","champion","bootstrap","lexiscope"];
+var wordLibrary = ["magical","javascript","champion","bootstrap","lexiscope"];
 var wordLibrarySplit = wordLibrary.shift('');
 var selectedWord = wordLibrarySplit.split('');
 shuffleArray(selectedWord);
@@ -27,7 +27,7 @@ for (var i = 0; i < wordLibrary.length; i++) {
 submitButton1();
 goCounter++;
   } else if (goCounter === 1) {
-
+    alert("game over")
   }
 
 
