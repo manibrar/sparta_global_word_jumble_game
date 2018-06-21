@@ -15,15 +15,7 @@ var guesses = [];
 var guessesJoined = "";
 
 if (goCounter === 0) {
-for (var i = 0; i < wordLibrary.length; i++) {
-    myStartButton.addEventListener('click', function(e) {
-      myStartButton.innerHTML = "Game Started!";
-      myStartButton.style.backgroundColor = "orange";
-      for (var i = 0; i < selectedWord.length; i++) {
-        myJumbledPanel[i].innerHTML = (selectedWord[i]);
-      }
-      });
-    }
+
 submitButton1();
 goCounter++;
   } else if (goCounter === 1) {

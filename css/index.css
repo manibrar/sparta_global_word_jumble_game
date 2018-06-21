@@ -12,6 +12,7 @@ h1 {
 button {
   box-shadow: 0px 4px 5px black;
   text-shadow: 0px 2px 5px black;
+  font-family: "Raleway";
 }
 
 .jumbotron {
@@ -29,6 +30,5 @@ button {
 .panel2 {
   font-size: 6em;
   font-family: "Raleway";
-
   color: black;
 }
