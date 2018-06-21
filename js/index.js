@@ -5,11 +5,12 @@ var myStartButton = document.getElementById('startButton');
 var mySubmitButton = document.getElementById('submitButton');
 var myResetButton = document.getElementById('resetButton');
 var info = document.getElementById('info');
+var myTimerBox = document.getElementById('timerBox');
 var turnCounter = 0;
 var t = turnCounter;
 var ticker = 0;
 var submitValuesArray = [];
-var wordLibrary = ["spartan", "richmond","animation", "cyberspace", "kickboxing", "wildebeast"];
+var wordLibrary = ["spartan", "richmond", "animation", "cyberspace", "kickboxing", "wildebeast"];
 var wordLibrarySplit = [];
 selectedWord = "";
 var guesses = [];
@@ -36,6 +37,7 @@ const allScores = {
 elementEditor(mySubmitButton, ".", "0", "Raleway", "border", "0px", "none");
 elementEditor(myResetButton, ".", "0", "Raleway", "border", "0px", "none");
 elementEditor(myStartButton, "Start", "4em", "Raleway", "border", "0px", "inline");
+elementEditor(myTimerBox, ".", "0", "Raleway", "border", "0px", "none");
 
 
 //Intro How to play button
@@ -44,7 +46,8 @@ elementEditor(info, 'How to play', "2em", "Raleway", "innerHTML", 'onclick="info
 
 //#How to play = When the letters are displayed on the screen you will have 30 seconds and three attempts to guess the correct word. If you win you will continue untill you have learnt all the words in the dictionary.
 info.addEventListener('click', function(e) {
-  //myGuessPreview.innerHTML = "When the letters are displayed in their panels you will have 30 seconds and three attempts to guess the correct word (made up from all the letters available). If you win you will continue untill you have learnt every word in the dictionary. Good Luck!!";
+
+//myGuessPreview.innerHTML = "When the letters are displayed in their panels you will have 30 seconds and three attempts to guess the correct word (made up from all the letters available). If you win you will continue untill you have learnt every word in the dictionary. Good Luck!!";
   elementEditor(myGuessPreview, "When the letters are displayed in their panels you will have 30 seconds <br> and three attempts to guess the correct word<br> (made up from all the letters available). If you win <br> you will continue untill you have learnt every word in the dictionary. <br><bold>Good Luck!!</bold><br>",
     "2em", "Raleway", "alignContent", "initial", "inline");
   elementEditor(myResetButton, ".", "0", "Raleway", "border", "0px", "none");
@@ -59,7 +62,7 @@ gameInitial();
 
 
 //Even round
-if (wordLibrary.length == 0){
+if (wordLibrary.length == 0) {
   win();
 } else if (turnCounter % 2 == 0) {
   roundStart('click');
@@ -74,7 +77,7 @@ if (wordLibrary.length == 0){
 
 
 //roundStart function
-function roundStart(){
+function roundStart() {
   myStartButton.addEventListener('click', function(e) {
     wordLibShuffle = [wordLibrary[ticker]];
     wordLibrarySplit = wordLibShuffle.shift();
@@ -99,12 +102,14 @@ function roundStart(){
         }
       });
     }
-
-    });
-  myResetButton.addEventListener('click', function(e) {
-    resetter();
   });
-  submitButton1();
+  // myStartButton.addEventListener('click',function(e){
+  //   elementEditor(myTimerBox, timeCounter, "4em", "Raleway", "border", "0px", "inline");
+  // });
+myResetButton.addEventListener('click', function(e) {
+  resetter();
+});
+submitButton1();
 }
 
 
@@ -147,7 +152,7 @@ function submitButton1() {
       win();
     } else if (guessesJoined != selectedWord.toLowerCase && guessesJoined.length == wordLibrarySplit.length && lives > 1) {
       lives--;
-      alert('Incorrect, Life lost! ' + lives + ' Lives left!');
+      alert('Incorrect, Life lost!\n' + lives + ' Lives left!');
       resetter();
     } else if (guessesJoined.length < selectedWord.length && lives != 0) {
       alert('Not enough characters');
@@ -192,6 +197,7 @@ function gameOver() {
   elementEditor(myResetButton, ".", "0", "Raleway", "border", "0px", "none");
   scoreNames[userTicker] = (prompt("Enter your name to save to leader board") + " " + userScore + "<br>");
   myGuessPreview.style.fontSize = "2em";
+  scoreNames = scoreNames.sort();
   myGuessPreview.innerHTML = "Scores: <br>" + scoreNames;
   myStartButton.addEventListener('click', function(e) {
     resetter();
@@ -202,53 +208,44 @@ function gameOver() {
 
 
 //elementEditor(myGuessPreview, "Welcome to Word Jumble!<br>", "1em", "Raleway", "alignContent", "initial", "inline");
-function gameInitial(){
-elementEditor(mySubmitButton, "Submit", "2em", "Raleway", "border", "0px", "none");
-elementEditor(myStartButton, "Start", "4em", "Raleway", "border", "0px", "inline");
-elementEditor(myResetButton, 'Reset', "2em", "Raleway", "backgroundColor", "orange", "none");
-elementEditor(info, 'How to play', "2em", "Raleway", "innerHTML", 'onclick="information"', "inline-block"); //(myGuessPreview, message, fontSize, fontStyle, something, someStyle, displayVal)
+function gameInitial() {
+  elementEditor(mySubmitButton, "Submit", "2em", "Raleway", "border", "0px", "none");
+  elementEditor(myStartButton, "Start", "4em", "Raleway", "border", "0px", "inline");
+  elementEditor(myResetButton, 'Reset', "2em", "Raleway", "backgroundColor", "orange", "none");
+  elementEditor(info, 'How to play', "2em", "Raleway", "innerHTML", 'onclick="information"', "inline-block"); //(myGuessPreview, message, fontSize, fontStyle, something, someStyle, displayVal)
 }
 
 
-
 //Win FUNCTION
-function win(){
-alert('You win');
-userRoundScore = (lives * selectedWord.length);
-totalScore = userScore + userRoundScore;
-userScore = totalScore;
-elementEditor(myGuessPreview, ("Your score is " + userScore), "5em", "Raleway", "alignContent", "initial", "inline");
-elementEditor(myStartButton, "Click for next word", "4em", "initial", "border", "0px", "inline");
-myStartButton.addEventListener('click', function(e) {
-  turnCounter++;
-  resetter();
-  lives = 3;
-});
-ticker++;
+function win() {
+  alert('You win');
+  userRoundScore = (lives * selectedWord.length);
+  totalScore = userScore + userRoundScore;
+  userScore = totalScore;
+  elementEditor(myGuessPreview, ("Your score is " + userScore), "5em", "Raleway", "alignContent", "initial", "inline");
+  elementEditor(myStartButton, "Click for next word", "4em", "initial", "border", "0px", "inline");
+  myStartButton.addEventListener('click', function(e) {
+    turnCounter++;
+    resetter();
+    lives = 3;
+  });
+  ticker++;
 }
 
 
 //-------------------- MAIN VARIABLES --------------------------\\
 
 
-//countedown timer
-// setInterval(countdownTimer, 3000);
+// countedown timer
+var timeCounter = 30;
+var timer = 0;
+var counterInterval = setInterval(countdownClock, 1000);
 
-// var counter = 0;
-// var timeleft = Math.floor(15);
-// var timer = myStartButton.innerHTML;
-// myStartButton.innerHTMl = "Game started " + (timeleft - counter);
-//
-// function countdownClock() {
-//   counter++;
-// myStartButton.innerHTMl = "Game started " + (timeleft - counter);
-// if (counter == (timeleft +1)) {
-//   counter = 0;
-//   alert("Time's up");
-//   clearInterval(counterInterval);
-// }
-// }
-// var counterInterval = setInterval(countdownClock, 1000);
+function countdownClock() {
+  timeCounter--;
+  var timer = timeCounter;
+}
+
 
 
 // var aTimer = 30;
