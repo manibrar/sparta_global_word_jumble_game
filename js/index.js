@@ -10,6 +10,8 @@ var t = turnCounter;
 var ticker = 0;
 var submitValuesArray = [];
 var wordLibrary = ["spartan", "richmond","animation", "cyberspace", "kickboxing", "wildebeast"];
+var wordLibrarySplit = [];
+selectedWord = "";
 var guesses = [];
 var guessesJoined = "";
 var lives = 3;
@@ -57,7 +59,9 @@ gameInitial();
 
 
 //Even round
-if (turnCounter % 2 == 0) {
+if (wordLibrary.length == 0){
+  win();
+} else if (turnCounter % 2 == 0) {
   roundStart('click');
 
   //Odd round
@@ -71,7 +75,6 @@ if (turnCounter % 2 == 0) {
 
 //roundStart function
 function roundStart(){
-
   myStartButton.addEventListener('click', function(e) {
     wordLibShuffle = [wordLibrary[ticker]];
     wordLibrarySplit = wordLibShuffle.shift();
@@ -141,18 +144,7 @@ function guessWrite(e, guesses) {
 function submitButton1() {
   mySubmitButton.addEventListener('click', function(e) {
     if (guessesJoined === wordLibrarySplit.toLowerCase()) {
-      alert('You win');
-      userRoundScore = (lives * selectedWord.length);
-      totalScore = userScore + userRoundScore;
-      userScore = totalScore;
-      elementEditor(myGuessPreview, ("Your score is " + userScore), "5em", "Raleway", "alignContent", "initial", "inline");
-      elementEditor(myStartButton, "Click for next word", "4em", "initial", "border", "0px", "inline");
-      myStartButton.addEventListener('click', function(e) {
-        turnCounter++;
-        resetter();
-        lives = 3;
-      });
-      ticker++;
+      win();
     } else if (guessesJoined != selectedWord.toLowerCase && guessesJoined.length == wordLibrarySplit.length && lives > 1) {
       lives--;
       alert('Incorrect, Life lost! ' + lives + ' Lives left!');
@@ -219,6 +211,21 @@ elementEditor(info, 'How to play', "2em", "Raleway", "innerHTML", 'onclick="info
 
 
 
+//Win FUNCTION
+function win(){
+alert('You win');
+userRoundScore = (lives * selectedWord.length);
+totalScore = userScore + userRoundScore;
+userScore = totalScore;
+elementEditor(myGuessPreview, ("Your score is " + userScore), "5em", "Raleway", "alignContent", "initial", "inline");
+elementEditor(myStartButton, "Click for next word", "4em", "initial", "border", "0px", "inline");
+myStartButton.addEventListener('click', function(e) {
+  turnCounter++;
+  resetter();
+  lives = 3;
+});
+ticker++;
+}
 
 
 //-------------------- MAIN VARIABLES --------------------------\\
