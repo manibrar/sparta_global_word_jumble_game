@@ -23,7 +23,7 @@ var totalScore = 0;
 var userTicker = 0;
 var scoreNames = [];
 var scoreScores = [];
-var timer = 0;
+var roundTimer = 30;
 const allScores = {
   name: [""],
   score: [30],
@@ -77,7 +77,7 @@ if (wordLibrary.length == 0) {
 
 
 //roundStart function
-function roundStart() {
+function roundStart(e) {
   myStartButton.addEventListener('click', function(e) {
     wordLibShuffle = [wordLibrary[ticker]];
     wordLibrarySplit = wordLibShuffle.shift();
@@ -87,6 +87,8 @@ function roundStart() {
     elementEditor(myGuessPreview, "", "5em", "Raleway", "alignContent", "initial", "inline");
     elementEditor(mySubmitButton, "Submit", "2em", "Raleway", "border", "0px", "inline");
     elementEditor(myResetButton, 'Reset', "2em", "initial", "backgroundColor", "orange", "inline");
+    elementEditor(myTimerBox, 'Timer', "4em", "initial", "backgroundColor", "orange", "inline");
+    myTimerBox.style.display = "inline";
     myStartButton.innerHTML = "Game Started ";
     myStartButton.style.backgroundColor = "orange";
     for (var i = 0; i < selectedWord.length; i++) {
@@ -103,9 +105,10 @@ function roundStart() {
       });
     }
   });
-  // myStartButton.addEventListener('click',function(e){
-  //   elementEditor(myTimerBox, timeCounter, "4em", "Raleway", "border", "0px", "inline");
-  // });
+  myStartButton.addEventListener('click',function(e){
+    guesses = [];
+    setInterval(roundTime, 1000);
+  });
 myResetButton.addEventListener('click', function(e) {
   resetter();
 });
@@ -232,19 +235,17 @@ function win() {
   ticker++;
 }
 
+function roundTime() {
+  roundTimer--;
+  myTimerBox.innerHTML = roundTimer;
+}
+var roundRound = setTimeout(roundTime, 1000);
 
 //-------------------- MAIN VARIABLES --------------------------\\
 
 
-// countedown timer
-var timeCounter = 30;
-var timer = 0;
-var counterInterval = setInterval(countdownClock, 1000);
+// countdown timer
 
-function countdownClock() {
-  timeCounter--;
-  var timer = timeCounter;
-}
 
 
 
