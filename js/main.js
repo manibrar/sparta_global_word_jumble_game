@@ -67,7 +67,7 @@ function gameInitial() {
   elementEditor(mySubmitButton, "Submit", "2em", "Raleway", "border", "0px", "none");
   elementEditor(myStartButton, "Start", "2em", "Raleway", "border", "0px", "inline");
   elementEditor(myResetButton, 'Reset', "2em", "Raleway", "backgroundColor", "orange", "none");
-  elementEditor(myInfo, 'How to play', "2em", "Raleway", "innerHTML", 'onclick="information"', "inline-block"); //(myGuessPreview, message, fontSize, fontStyle, something, someStyle, displayVal)
+  elementEditor(myInfo, 'Instructions', "2em", "Raleway", "innerHTML", 'onclick="information"', "inline-block"); //(myGuessPreview, message, fontSize, fontStyle, something, someStyle, displayVal)
   myTimerBox.style.display = "none";
   myMessageDisplay.style.display = "none";
   myLivesButton.style.display = "none";
@@ -324,6 +324,9 @@ function pauseAudio(){
  tick.currentTime = 0;
 }
 
+function winAudio(){
+  win.play();
+}
 
 // function roundTime() {
 //   if (atimer <= 30) {
