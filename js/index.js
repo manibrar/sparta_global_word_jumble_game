@@ -5,8 +5,11 @@ var myStartButton = document.getElementById('startButton');
 var mySubmitButton = document.getElementById('submitButton');
 var myResetButton = document.getElementById('resetButton');
 var myShuffleButton = document.getElementById('shuffleButton');
-var info = document.getElementById('info');
+var myInfo = document.getElementById('info');
 var myTimerBox = document.getElementById('timerBox');
+var myWelcomeBox = document.getElementById('introWelcome');
+var myMessageDisplay = document.getElementById('messageDisplay');
+var myUserName = document.getElementById('userName');
 var turnCounter = 0;
 var t = turnCounter;
 var ticker = 0;
@@ -33,9 +36,10 @@ const allScores = {
 
 
 //#How to play = When the letters are displayed on the screen you will have 30 seconds and three attempts to guess the correct word. If you win you will continue untill you have learnt all the words in the dictionary.
-info.addEventListener('click', function(e) {
-  elementEditor(myGuessPreview, "<h2>Welcome to Word jumble!</h2>The aim of the game is to guess the jumbled word using all<br> the letters before the time runs out. To make a guess click the letters<br>in the panels to enter the word into guess preview. You can press the shuffle<br>button to rearrange the letters and reset to start again. If you guess the word<br>correctly you will advance to the next level, when your go is over you can<br>enter your name and<br>challenge your friends to beat your score.", "1.5em", "Raleway", "alignContent", "initial", "inline");
-  info.style.display = "none";
+myInfo.addEventListener('click', function(e) {
+  myWelcomeBox.style.display = "block";
+  myInfo.style.display = "none";
+  myMessageDisplay.style.display = "none";
 });
 
 
@@ -44,59 +48,70 @@ gameInitial();
 
 
 //Even round
-if (wordLibrary.length == 0) {
-  win();
+  if (wordLibrary.length == 0) {
+    win();
   } else if (turnCounter % 2 == 0) {
   atimer = -1;
-  roundStart('click');
-  //Odd round
+    roundStart('click');
+//Odd round
   } else if (turnCounter % 2 != 0) {
-  atimer = -1;
-  roundStart('click');
-}
+    atimer = -1;
+    roundStart('click');
+  }
 
 
 //---------------- FUNCTIONS ----------------\\
+
+
 //elementEditor(myGuessPreview, "Welcome to Word Jumble!<br>", "1em", "Raleway", "alignContent", "initial", "inline");
 function gameInitial() {
-  elementEditor(mySubmitButton, "Submit", "2em", "Raleway", "border", "0px", "none");
-  elementEditor(myStartButton, "Start", "4em", "Raleway", "border", "0px", "inline");
-  elementEditor(myResetButton, 'Reset', "2em", "Raleway", "backgroundColor", "orange", "none");
-  elementEditor(info, 'How to play', "3em", "Raleway", "innerHTML", 'onclick="information"', "inline-block"); //(myGuessPreview, message, fontSize, fontStyle, something, someStyle, displayVal)
+  elementEditor(mySubmitButton, "Submit", "3em", "Raleway", "border", "0px", "none");
+  elementEditor(myStartButton, "Start", "3em", "Raleway", "border", "0px", "inline");
+  elementEditor(myResetButton, 'Reset', "3em", "Raleway", "backgroundColor", "orange", "none");
+  elementEditor(myInfo, 'How to play', "2.5em", "Raleway", "innerHTML", 'onclick="information"', "inline-block"); //(myGuessPreview, message, fontSize, fontStyle, something, someStyle, displayVal)
   elementEditor(myShuffleButton, ".", "0", "Raleway", "border", "0px", "none");
   myTimerBox.style.display = "none";
+  myMessageDisplay.style.display = "none";
 }
-
-
-
-
 
 //roundStart function
 function roundStart() {
   atimer = -1;
+
   myStartButton.addEventListener('click', function(e) {
     if (atimer === -1) {
       atimer = 30;
+      userName = myUserName.value;
     }
+    myUserName.style.display = "none";
     guesses = [];
-    aGo = 1;
+    myGuessPreview.innerHTML = "";
     wordLibShuffle = [wordLibrary[ticker]];
     wordLibrarySplit = wordLibShuffle.shift();
     selectedWord = wordLibrarySplit.split('');
     shuffleLetters(selectedWord);
-    elementEditor(info, 'How to play', "2em", "Raleway", "innerHTML", 'onclick="information"', "none"); //(myGuessPreview, message, fontSize, fontStyle, something, someStyle, displayVal)
-    elementEditor(myGuessPreview, "", "5em", "Raleway", "alignContent", "initial", "inline");
-    elementEditor(mySubmitButton, "Submit", "2em", "Raleway", "border", "0px", "inline");
-    elementEditor(myResetButton, 'Reset', "2em", "Raleway", "backgroundColor", "orange", "inline");
+    myWelcomeBox.style.display = "none";
+    myInfo.style.display = "none";
+    myStartButton.style.display = "inline"; myStartButton.innerHTML = "Shuffle";
+    //elementEditor(myGuessPreview, "", "5em", "Raleway", "alignContent", "initial", "inline");
+    elementEditor(mySubmitButton, "Submit", "3em", "Raleway", "border", "0px", "inline");
+    elementEditor(myResetButton, 'Reset', "3em", "Raleway", "backgroundColor", "orange", "inline");
     elementEditor(myTimerBox, atimer, "3em", "initial", "textcolor", "orange", "inline");
-    elementEditor(myStartButton, "Shuffle", "3em", "Raleway", "backgroundColor", "orange", "inline");
+
     for (var i = 0; i < selectedWord.length; i++) {
-      myJumbledPanel[i].innerHTML = (selectedWord[i]);
+      if (selectedWord[i] != "") {
+        myJumbledPanel[i].innerHTML = (selectedWord[i]);
+      }
+    }
+    for (var i = 0; i < myJumbledPanel.length; i++) {
+      if (myJumbledPanel[i].innerHTML == "") {
+        myJumbledPanel[i].style.display = "none";
+      }
     }
     for (var i = 0; i < selectedWord.length; i++) {
       myJumbledPanel[i].addEventListener('click', function(e) {
         if (guesses.length > selectedWord.length) {
-          alert("Maximum Letters")
+          elementEditor(myMessageDisplay, "Maximum Letters", "2em", "initial", "style.backgroundColor", "red", "inline");("Maximum Letters")
         } else if (guesses.length <= selectedWord.length && e.target.innerHTML != "") {
           guessWrite(e, guesses);
           this.innerHTML = "";
@@ -111,26 +126,34 @@ function roundStart() {
   setIt();
 }
 
+//Round timer function
 function setIt() {
   setInterval(function() {
-    if (atimer <= 30 && atimer >= 11 && (aGo = true)) {
+    if (atimer <= 30 && atimer >= 22) {
+      atimer--;
+      myTimerBox.innerHTML = atimer;
+      myTimerBox.style.backgroundColor = "green";
+    } else if (atimer <= 22 && atimer >= 12) {
       atimer--;
       myTimerBox.innerHTML = atimer;
       myTimerBox.style.backgroundColor = "orange";
-      //console.log(atimer);
-    }
-    if (atimer < 10 && atimer >= 1 && (aGo = true)) {
+    } else if (atimer <= 22 && atimer >= 1) {
       atimer--;
       myTimerBox.innerHTML = atimer;
       myTimerBox.style.backgroundColor = "red";
-      //console.log(atimer);
     } else if (0 == atimer) {
-      alert('Times up, You lose');
+      resetter();
+      newBoard();
+      lives--;
+      elementEditor(myMessageDisplay, "<small>Time's up.</small> Lose a life!", "2em", "initial", "border", "0px", "inline");
+      lifeMessage = ('Times up,<br>' + lives + ' Lives left!');
+      elementEditor(myGuessPreview, lifeMessage, "3em", "Raleway", "border", "0px", "inline");
       atimer = -1;
-      gameOver();
-      aGo = 0;
+      myStartButton.addEventListener('click',function(e){
+      elementEditor(myGuessPreview, "", "3em", "Raleway", "border", "0px", "inline");
+      });
     }
-  }, 30000 / 30);
+  }, 31000 / 30);
   clearInterval();
 }
 
@@ -175,10 +198,15 @@ function submitButton1() {
       win();
     } else if (guessesJoined != selectedWord.toLowerCase && guessesJoined.length == wordLibrarySplit.length && lives > 1) {
       lives--;
-      alert('Incorrect, Life lost!\n' + lives + ' Lives left!');
+      incorrectGuess = ('Incorrect, Life lost!\n' + lives + ' Lives left!');
+      elementEditor(myMessageDisplay, incorrectGuess, "3em", "Raleway", "border", "0px", "inline");
       resetter();
+      newBoard();
     } else if (guessesJoined.length < selectedWord.length && lives != 0) {
-      alert('Not enough characters');
+      notChar = ('Not enough characters');
+      elementEditor(myMessageDisplay, notChar, "3em", "Raleway", "border", "0px", "inline");
+      resetter();
+      newBoard();
     } else {
       gameOver();
       lives = 3;
@@ -203,6 +231,20 @@ function resetter() {
 }
 
 
+//new board after times up
+function newBoard(){
+elementEditor(myStartButton, "Try again", "3em", "Raleway", "backgroundColor", "inerit", "inline");
+mySubmitButton.style.display = "none";
+myResetButton.style.display = "none";
+myTimerBox.style.display = "none";
+myStartButton.addEventListener('click',function(e){
+  myMessageDisplay.style.display = "none";
+  elementEditor(myGuessPreview, "", "3em", "Raleway", "border", "0px", "inline");
+});
+atimer = -1;
+}
+
+
 //function to jumble words and split
 function wordJumble() {
   wordLibrarySplit = wordLibrary.shift();
@@ -213,49 +255,52 @@ function wordJumble() {
 
 //gameOver function
 function gameOver() {
-  alert('Game over!');
-  elementEditor(myStartButton, "New Game", "4em", "initial", "backgroundColor", "inerit", "inline");
-  elementEditor(mySubmitButton, ".", "0", "Raleway", "border", "0px", "none");
-  elementEditor(myResetButton, ".", "0", "Raleway", "border", "0px", "none");
-  scoreNames[userTicker] = (prompt("Enter your name to save to leader board") + " " + userScore + "<br>");
-  myGuessPreview.style.fontSize = "2em";
-  scoreNames = scoreNames.sort();
-  myGuessPreview.innerHTML = "Scores: <br>" + scoreNames;
+  alertGameOver = ('Game over!');
+  newBoard();
+  elementEditor(myMessageDisplay, alertGameOver, "3em", "initial", "backgroundColor", "red", "inline");
+  myStartButton.innerHTML = "New Game";
+  myUserName.style.display = "inline";
+  userName = myUserName.value;
+  scoreNames[userTicker] = userScore + " " + userName + "<br>";
+  scoreNames2 = scoreNames.sort(sortNumber);
+  myGuessPreview.innerHTML = "Top scores:<br>" + scoreNames2;
   myStartButton.addEventListener('click', function(e) {
-    for (var i = 0; i < selectedWord.length; i++) {
-      myJumbledPanel[i].innerHTML = (selectedWord[i]);
-
-      myGuessPreview.innerText = "";
-      guesses.push([]);
-      guessesJoined = "";
-      guesses = [];
-      totalScore = 0;
-    }
+  resetter();
   });
   userTicker++;
   atimer = -1;
-
+  userScore = 0;
+  totalScore = 0;
+  roundScore = 0;
 }
 
 //Win FUNCTION
 function win() {
   atimer = -1;
-  alert('Thats correct the word is ' + wordLibrarySplit);
   userRoundScore = (lives * selectedWord.length);
   totalScore = userScore + userRoundScore;
   userScore = totalScore;
-  elementEditor(myGuessPreview, ("Your score is " + userScore), "5em", "Raleway", "alignContent", "initial", "inline");
+  winningMessage = ("<small>That's correct the word is:</small><br>" + "<bold>" + wordLibrarySplit + "</bold>");
+  elementEditor(myGuessPreview, ("Your score is " + userScore), "3em", "Raleway", "alignContent", "initial", "inline");
   elementEditor(myStartButton, "Click for next word", "3em", "initial", "border", "0px", "inline");
+  elementEditor(myMessageDisplay, winningMessage, "3em", "initial", "border", "0px", "inline");
+  myTimerBox.style.display = "none";
+  myResetButton.style.display = "none";
+  mySubmitButton.style.display = "none";
   myStartButton.addEventListener('click', function(e) {
     turnCounter++;
     resetter();
-    lives = 3;
+    myMessageDisplay.style.display = "none";
   });
   ticker++;
   atimer = -1;
+  lives = 3;
 }
 
-
+//num array sort FUNCTION
+function sortNumber(a,b) {
+    return a<b;
+}
 
 
 // function roundTime() {

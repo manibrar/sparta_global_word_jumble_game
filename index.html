@@ -11,21 +11,33 @@
   <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
   <link rel="stylesheet" href="./css/index.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 
 <body>
 
+  <!-- Modal -->
 
-  <div class="wrapper">
+
+
+
+
+  <div id="mainWrapper" class="wrapper">
+
     <div class="container-flex">
+
+
 
       <div id="mainHeader" class="jumbotron text-center">
         <h1>Word Jumble</h1>
-        <br>
         <button id="shuffleButton" class="btn-info btn-md" type="button" name="button">Shuffle</button>
         <button id="startButton" class="btn-info btn-md" type="button" name="button">Start</button>
         <button id="timerBox" class="btn-info btn-md" type="button" name="button"></button>
+        <br>
+        <br>
+        <input id="userName" type="text" name="userName" value="" placeholder="User Name">
       </div>
 
       <div id="jumbledPanel" class="container-fluid panel text-center">
@@ -76,12 +88,36 @@
       <div id="guessPanel" class="container-fluid panel text-center">
         <h2></h2>
 
+        <button id="messageDisplay" class="btn-default btn-md text-center btn-success" type="button" name="button"></button>
+        <br>
+
         <div id="guessPreview" class="panel panel2">
+
+        </div>
+
+        <div class="container-fluid">
+
+          <div class="row">
+
+            <div class="col-xl-2 col-lg-2 col-md-2">
+            </div>
+
+            <div id="introWelcome" class="col-xl-8 col-lg-8 col-md-8 container text-center .fade">
+              <p>
+                <h2>Welcome to Word jumble!</h2>The aim of the game is to guess the jumbled word using all available letters before the time runs out. To make a guess click the letters in the panels to enter the word into guess preview. You can press the shuffle button to rearrange
+                the letters and reset to start again. If you guess the word correctly you will advance to the next level, when your go is over you can enter your name and challenge your friends to beat your score.</p>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-2">
+            </div>
+
+          </div>
 
         </div>
 
         <div class="panel text-center">
           <button id="resetButton" class="btn-default btn-md text-center btn-info" type="button" name="button">Reset</button>
+          &nbsp;
           <button id="submitButton" class="btn-default btn-md text-center btn-info" type="button" name="button">Submit</button>
           <button id="info" class="btn-default btn-md text-center btn-info" type="button" name="button"></button>
         </div>

@@ -1,18 +1,35 @@
-body {
+#mainWrapper {
   font-family: "Raleway";
+  z-index: 0;
 }
 
 h1 {
   font-size: 6em;
   font-family: "Indie Flower";
   text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
-  color: #e9efdc;
+  color: grey;
+
 }
 
 button {
   box-shadow: 0px 4px 5px black;
   text-shadow: 0px 2px 5px black;
   font-family: "Raleway";
+  border-width: 0px;
+}
+
+#userName {
+  margin: 0 10%;
+  font-size: 1.5em;
+}
+
+#introWelcome {
+  display: none;
+  z-index: 2;
+  position: relative;
+  font-size: 1.5em;
+  text-shadow: 4px 2px 5px #e9efdc;
+  margin: 0 auto; //center content
 }
 
 .jumbotron {
