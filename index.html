@@ -28,20 +28,26 @@
 
     <div class="container-flex">
 
-
-
       <div id="mainHeader" class="jumbotron text-center">
         <h1>Word Jumble</h1>
-        <button id="shuffleButton" class="btn-info btn-md" type="button" name="button">Shuffle</button>
-        <button id="startButton" class="btn-info btn-md" type="button" name="button">Start</button>
+        <button id="livesButton" class="btn-info btn-md" type="button" name="button">Start</button>
         <button id="timerBox" class="btn-info btn-md" type="button" name="button"></button>
+        <div class="">
+          <input id="userName" type="text" name="userName" value="" placeholder="User Name">
+        </div>
         <br>
-        <br>
-        <input id="userName" type="text" name="userName" value="" placeholder="User Name">
+
+        <div class="container text-center">
+          <button id="startButton" class="btn-info btn-md" type="button" name="button">Start</button>
+        </div>
+
       </div>
 
+
+
+
       <div id="jumbledPanel" class="container-fluid panel text-center">
-        <h2 onclick="display:block;"></h2>
+
 
         <div class="row">
 
@@ -85,12 +91,10 @@
       </div>
       <br>
 
-      <div id="guessPanel" class="container-fluid panel text-center">
-        <h2></h2>
+      <div id="guessPanel" class="container-flex panel text-center">
 
         <button id="messageDisplay" class="btn-default btn-md text-center btn-success" type="button" name="button"></button>
         <br>
-
         <div id="guessPreview" class="panel panel2">
 
         </div>
