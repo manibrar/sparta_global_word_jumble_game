@@ -102,15 +102,9 @@ function roundStart() {
     elementEditor(myTimerBox, atimer, "2em", "initial", "textcolor", "orange", "inline");
     elementEditor(myLivesButton, "Lives = " + lives, "2em", "Raleway", "border", "0px", "inline");
     for (var i = 0; i < selectedWord.length; i++) {
-      if (selectedWord[i] != "") {
+
         myJumbledPanel[i].innerHTML = (selectedWord[i]);
       }
-    }
-    for (var i = 0; i < myJumbledPanel.length; i++) {
-      if (myJumbledPanel[i].innerHTML == "") {
-        myJumbledPanel[i].style.display = "none";
-      }
-    }
     for (var i = 0; i < selectedWord.length; i++) {
       myJumbledPanel[i].addEventListener('click', function(e) {
         if (guesses.length > selectedWord.length) {
