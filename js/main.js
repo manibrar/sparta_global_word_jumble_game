@@ -79,7 +79,6 @@ function roundStart() {
   mySubmitButton.addEventListener('click',function(e){
   pauseAudio('click');
   });
-
   myStartButton.addEventListener('click', function(e) {
     if (atimer === -1) {
       atimer = 30;
@@ -102,7 +101,6 @@ function roundStart() {
     elementEditor(myTimerBox, atimer, "2em", "initial", "textcolor", "orange", "inline");
     elementEditor(myLivesButton, "Lives = " + lives, "2em", "Raleway", "border", "0px", "inline");
     for (var i = 0; i < selectedWord.length; i++) {
-
         myJumbledPanel[i].innerHTML = (selectedWord[i]);
       }
     for (var i = 0; i < selectedWord.length; i++) {
@@ -148,14 +146,20 @@ function setIt() {
       resetter();
       newBoard();
       lives--;
-      myMessageDisplay.style.backgroundColor = "red";
-      elementEditor(myMessageDisplay, "<small>Time's up.</small> Lose a life!", "2em", "Raleway", "border", "0px", "inline");
-      lifeMessage = (lives + ' Lives left!');
-      elementEditor(myGuessPreview, lifeMessage, "2em", "Raleway", "border", "0px", "inline");
-      atimer = -1;
-      myStartButton.addEventListener('click', function(e) {
-        elementEditor(myGuessPreview, "", "4em", "Raleway", "border", "0px", "inline");
-      });
+      if (lives != 0) {
+        myMessageDisplay.style.backgroundColor = "red";
+        elementEditor(myMessageDisplay, "<small>Time's up.</small> Lose a life!", "2em", "Raleway", "border", "0px", "inline");
+        lifeMessage = (lives + ' Lives left!');
+        elementEditor(myGuessPreview, lifeMessage, "2em", "Raleway", "border", "0px", "inline");
+        atimer = -1;
+        myStartButton.addEventListener('click', function(e) {
+          elementEditor(myGuessPreview, "", "4em", "Raleway", "border", "0px", "inline");
+        });
+      } else if (lives == 0) {
+        gameOver();
+        lives = 3;
+      }
+
     }
   }, 31000 / 30);
   clearInterval();
@@ -270,7 +274,7 @@ function gameOver() {
   scoreNames2 = scoreNames.sort(sortNumber);
   myGuessPreview.innerHTML = "Top scores:<br>" + scoreNames2;
   myStartButton.addEventListener('click', function(e) {
-    resetter();
+  resetter();
   });
   userTicker++;
   atimer = -1;
